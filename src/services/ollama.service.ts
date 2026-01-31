@@ -8,13 +8,23 @@ import type {
   OllamaChatOptions,
 } from '@/types/ollama.types';
 
-const DEFAULT_BASE_URL = 'http://localhost:11434';
+/**
+ * Détermine l'URL de base pour Ollama selon l'environnement
+ * - En dev : utilise le proxy Vite (/api)
+ * - En prod : utilise le proxy Express (/ollama-api)
+ */
+function getDefaultBaseUrl(): string {
+  if (import.meta.env.DEV) {
+    return '/api';
+  }
+  return '/ollama-api';
+}
 
 class OllamaService {
   private baseUrl: string;
 
-  constructor(baseUrl: string = DEFAULT_BASE_URL) {
-    this.baseUrl = baseUrl;
+  constructor(baseUrl?: string) {
+    this.baseUrl = baseUrl ?? getDefaultBaseUrl();
   }
 
   setBaseUrl(url: string): void {

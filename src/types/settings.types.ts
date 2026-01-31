@@ -18,7 +18,7 @@ export interface Settings {
 }
 
 export const DEFAULT_SETTINGS: Settings = {
-  ollamaUrl: 'http://localhost:11434',
+  ollamaUrl: '/ollama-api',
   defaultModel: 'qwen2.5-coder:14b-instruct-q4_K_M',
   temperature: 0.7,
   systemPrompt: 'Tu es un assistant de programmation expert. Tu réponds de manière concise et précise en français.',
