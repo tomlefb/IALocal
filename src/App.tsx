@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { AlertTriangle, RefreshCw, Server } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
 import { Sidebar } from '@/components/sidebar/Sidebar';
+import { SettingsModal } from '@/components/settings';
 import { WelcomeScreen } from '@/components/chat/WelcomeScreen';
 import { MessageList } from '@/components/chat/MessageList';
 import { InputBar } from '@/components/chat/InputBar';
@@ -198,29 +199,11 @@ function App() {
         </div>
       </Layout>
 
-      {/* Modal Settings - placeholder pour le prochain prompt */}
-      {isSettingsOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
-          onClick={() => setIsSettingsOpen(false)}
-        >
-          <div
-            className="bg-bg-secondary border border-border-subtle rounded-xl p-6 max-w-md w-full mx-4"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h2 className="text-lg font-semibold text-text-primary mb-4">Paramètres</h2>
-            <p className="text-text-secondary text-sm">
-              La modal des paramètres sera développée prochainement.
-            </p>
-            <button
-              onClick={() => setIsSettingsOpen(false)}
-              className="mt-4 w-full px-4 py-2 rounded-lg bg-accent hover:bg-accent-hover text-white transition-colors"
-            >
-              Fermer
-            </button>
-          </div>
-        </div>
-      )}
+      {/* Modal Settings */}
+      <SettingsModal
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+      />
     </>
   );
 }

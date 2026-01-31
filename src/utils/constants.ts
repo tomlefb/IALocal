@@ -1,6 +1,12 @@
 // === API ===
 export const DEFAULT_OLLAMA_URL = 'http://localhost:11434';
 
+// === MODÈLES AUTORISÉS ===
+export const ALLOWED_MODELS = [
+  'llama3.1:8b',
+  'qwen2.5-coder:7b',
+] as const;
+
 // === UI ===
 export const SIDEBAR_WIDTH = 280;
 export const HEADER_HEIGHT = 56;

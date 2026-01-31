@@ -4,7 +4,7 @@ import { useConnectionStore } from '@/stores/connectionStore';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { IconButton, Badge, Dropdown } from '@/components/ui';
 import type { DropdownItem } from '@/components/ui';
-import { cn } from '@/utils';
+import { cn, ALLOWED_MODELS } from '@/utils';
 
 export interface HeaderProps {
   onOpenSettings: () => void;
@@ -18,8 +18,13 @@ export function Header({ onOpenSettings, onToggleSidebar }: HeaderProps) {
 
   const title = activeConversation?.title || 'Nouvelle conversation';
 
+  // Filtrer les modèles autorisés
+  const filteredModels = availableModels.filter((model) =>
+    ALLOWED_MODELS.includes(model.name as typeof ALLOWED_MODELS[number])
+  );
+
   // Dropdown items pour les modèles
-  const modelItems: DropdownItem[] = availableModels.map((model) => ({
+  const modelItems: DropdownItem[] = filteredModels.map((model) => ({
     label: model.name,
     onClick: () => updateSettings({ defaultModel: model.name }),
     icon: model.name === defaultModel ? Check : undefined,
