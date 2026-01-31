@@ -6,16 +6,19 @@ import { SettingsModal } from '@/components/settings';
 import { WelcomeScreen } from '@/components/chat/WelcomeScreen';
 import { MessageList } from '@/components/chat/MessageList';
 import { InputBar } from '@/components/chat/InputBar';
+import { LoginScreen } from '@/components/auth';
 import { useChat } from '@/hooks/useChat';
 import { useChatStore } from '@/stores/chatStore';
 import { useConnectionStore } from '@/stores/connectionStore';
 import { useSettingsStore } from '@/stores/settingsStore';
+import { useAuthStore } from '@/stores/authStore';
 import { cn } from '@/utils';
 
 function App() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
-  // Stores
+  // Stores - tous les hooks doivent être appelés avant tout return conditionnel
+  const { isAuthenticated } = useAuthStore();
   const { setActiveConversation, getActiveConversation } = useChatStore();
   const { isConnected, isChecking, error, checkConnection } = useConnectionStore();
   const { userName, ollamaUrl, theme } = useSettingsStore();
@@ -27,10 +30,12 @@ function App() {
   const activeConversation = getActiveConversation();
   const messages = activeConversation?.messages ?? [];
 
-  // Vérifie la connexion Ollama au montage
+  // Vérifie la connexion Ollama au montage (seulement si authentifié)
   useEffect(() => {
-    checkConnection();
-  }, [checkConnection]);
+    if (isAuthenticated) {
+      checkConnection();
+    }
+  }, [checkConnection, isAuthenticated]);
 
   // Applique le thème au document
   useEffect(() => {
@@ -43,6 +48,11 @@ function App() {
       root.classList.remove('dark');
     }
   }, [theme]);
+
+  // Si pas authentifié, afficher l'écran de login
+  if (!isAuthenticated) {
+    return <LoginScreen />;
+  }
 
   // Handlers
   const handleOpenSettings = () => {

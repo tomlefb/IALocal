@@ -1,7 +1,8 @@
-import { Menu, Settings, Sun, Moon } from 'lucide-react';
+import { Menu, Settings, Sun, Moon, LogOut } from 'lucide-react';
 import { useChatStore } from '@/stores/chatStore';
 import { useConnectionStore } from '@/stores/connectionStore';
 import { useSettingsStore } from '@/stores/settingsStore';
+import { useAuthStore } from '@/stores/authStore';
 import { IconButton } from '@/components/ui';
 import { cn, DEFAULT_MODEL } from '@/utils';
 
@@ -14,6 +15,7 @@ export function Header({ onOpenSettings, onToggleSidebar }: HeaderProps) {
   const activeConversation = useChatStore((state) => state.getActiveConversation());
   const { isConnected } = useConnectionStore();
   const { theme, updateSettings } = useSettingsStore();
+  const { logout } = useAuthStore();
 
   const title = activeConversation?.title || 'Nouvelle conversation';
 
@@ -86,6 +88,13 @@ export function Header({ onOpenSettings, onToggleSidebar }: HeaderProps) {
           icon={Settings}
           onClick={onOpenSettings}
           tooltip="Paramètres"
+        />
+
+        {/* Bouton déconnexion */}
+        <IconButton
+          icon={LogOut}
+          onClick={logout}
+          tooltip="Déconnexion"
         />
       </div>
     </header>
