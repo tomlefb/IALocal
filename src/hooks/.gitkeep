@@ -1,0 +1,8 @@
+// Hooks personnalisés - à développer
+// - useChat.ts
+// - useStreamResponse.ts
+// - useOllamaStatus.ts
+// - useLocalStorage.ts
+// - useKeyboardShortcuts.ts
+
+export {};

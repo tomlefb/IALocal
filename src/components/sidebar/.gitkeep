@@ -1,0 +1,7 @@
+// Components sidebar - à développer
+// - Sidebar.tsx
+// - ConversationList.tsx
+// - ConversationItem.tsx
+// - NewChatButton.tsx
+
+export {};

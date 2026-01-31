@@ -1,0 +1,10 @@
+// Components chat - à développer
+// - ChatWindow.tsx
+// - MessageList.tsx
+// - MessageBubble.tsx
+// - CodeBlock.tsx
+// - InputBar.tsx
+// - TypingIndicator.tsx
+// - WelcomeScreen.tsx
+
+export {};

@@ -1,0 +1,11 @@
+// Components UI réutilisables - à développer
+// - Button.tsx
+// - IconButton.tsx
+// - Modal.tsx
+// - Dropdown.tsx
+// - Toggle.tsx
+// - Slider.tsx
+// - Tooltip.tsx
+// - Badge.tsx
+
+export {};
