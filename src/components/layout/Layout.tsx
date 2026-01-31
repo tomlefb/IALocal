@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useState, type ReactNode, cloneElement, isValidElement } from 'react';
 import { cn } from '@/utils';
 import { SIDEBAR_WIDTH } from '@/utils/constants';
 import { Header } from './Header';
@@ -20,6 +20,13 @@ export function Layout({ children, sidebar, onOpenSettings }: LayoutProps) {
     setIsSidebarOpen(false);
   };
 
+  // Clone sidebar element to inject closeSidebar function
+  const sidebarWithClose = isValidElement(sidebar)
+    ? cloneElement(sidebar as React.ReactElement<{ onClose?: () => void }>, {
+        onClose: closeSidebar,
+      })
+    : sidebar;
+
   return (
     <div className="h-screen flex overflow-hidden bg-bg-primary">
       {/* Sidebar - Desktop */}
@@ -30,7 +37,7 @@ export function Layout({ children, sidebar, onOpenSettings }: LayoutProps) {
         )}
         style={{ width: SIDEBAR_WIDTH }}
       >
-        {sidebar}
+        {sidebarWithClose}
       </aside>
 
       {/* Sidebar - Mobile Overlay */}
@@ -52,7 +59,7 @@ export function Layout({ children, sidebar, onOpenSettings }: LayoutProps) {
             )}
             style={{ width: SIDEBAR_WIDTH }}
           >
-            {sidebar}
+            {sidebarWithClose}
           </aside>
         </>
       )}

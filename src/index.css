@@ -2,6 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Theme CSS Variables - Dark mode (default) */
+:root {
+  --bg-primary-rgb: 10 10 10;
+  --bg-secondary-rgb: 20 20 20;
+  --bg-tertiary-rgb: 31 31 31;
+  --surface-rgb: 26 26 26;
+  --surface-hover-rgb: 37 37 37;
+  --surface-active-rgb: 47 47 47;
+  --surface-glass: rgba(26, 26, 26, 0.8);
+  --border-subtle-rgb: 42 42 42;
+  --border-default-rgb: 58 58 58;
+  --text-primary-rgb: 255 255 255;
+  --text-secondary-rgb: 160 160 160;
+  --text-tertiary-rgb: 107 107 107;
+  --bubble-assistant-rgb: 42 42 42;
+}
+
+/* Light mode */
+.light {
+  --bg-primary-rgb: 248 249 250;
+  --bg-secondary-rgb: 255 255 255;
+  --bg-tertiary-rgb: 233 236 239;
+  --surface-rgb: 255 255 255;
+  --surface-hover-rgb: 241 243 244;
+  --surface-active-rgb: 232 234 237;
+  --surface-glass: rgba(255, 255, 255, 0.8);
+  --border-subtle-rgb: 222 226 230;
+  --border-default-rgb: 206 212 218;
+  --text-primary-rgb: 26 26 26;
+  --text-secondary-rgb: 95 99 104;
+  --text-tertiary-rgb: 154 160 166;
+  --bubble-assistant-rgb: 233 236 239;
+}
+
 /* Reset et styles de base */
 @layer base {
   * {
@@ -15,7 +49,7 @@
   }
 
   body {
-    @apply bg-bg-primary text-text-primary font-sans antialiased;
+    @apply font-sans antialiased bg-bg-primary text-text-primary;
     min-height: 100vh;
     overflow: hidden;
   }
@@ -54,7 +88,8 @@
 @layer components {
   /* Effet glassmorphism */
   .glass {
-    @apply bg-surface/80 backdrop-blur-xl border border-border-subtle;
+    background-color: var(--surface-glass);
+    @apply backdrop-blur-xl border border-border-subtle;
   }
 
   /* Card */

@@ -123,13 +123,13 @@ export function ConversationItem({
       {/* Date relative */}
       <span className="text-xs text-text-tertiary">{relativeTime}</span>
 
-      {/* Actions au hover */}
+      {/* Actions au hover (desktop) ou toujours visible sur mobile */}
       {!isEditing && (
         <div
           className={cn(
             'absolute right-2 top-1/2 -translate-y-1/2',
             'flex items-center gap-0.5',
-            'opacity-0 group-hover:opacity-100',
+            'md:opacity-0 md:group-hover:opacity-100',
             'transition-opacity duration-200'
           )}
         >

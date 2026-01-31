@@ -7,35 +7,29 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Fond
-        'bg-primary': '#0a0a0a',
-        'bg-secondary': '#141414',
-        'bg-tertiary': '#1f1f1f',
-        
-        // Surfaces (cards, modals)
-        'surface': '#1a1a1a',
-        'surface-hover': '#252525',
-        'surface-active': '#2f2f2f',
-        
-        // Bordures
-        'border-subtle': '#2a2a2a',
-        'border-default': '#3a3a3a',
-        
-        // Texte
-        'text-primary': '#ffffff',
-        'text-secondary': '#a0a0a0',
-        'text-tertiary': '#6b6b6b',
-        
-        // Accent
+        // Utilise les CSS variables pour le theming (rgb format pour opacity support)
+        'bg-primary': 'rgb(var(--bg-primary-rgb) / <alpha-value>)',
+        'bg-secondary': 'rgb(var(--bg-secondary-rgb) / <alpha-value>)',
+        'bg-tertiary': 'rgb(var(--bg-tertiary-rgb) / <alpha-value>)',
+
+        'surface': 'rgb(var(--surface-rgb) / <alpha-value>)',
+        'surface-hover': 'rgb(var(--surface-hover-rgb) / <alpha-value>)',
+        'surface-active': 'rgb(var(--surface-active-rgb) / <alpha-value>)',
+
+        'border-subtle': 'rgb(var(--border-subtle-rgb) / <alpha-value>)',
+        'border-default': 'rgb(var(--border-default-rgb) / <alpha-value>)',
+
+        'text-primary': 'rgb(var(--text-primary-rgb) / <alpha-value>)',
+        'text-secondary': 'rgb(var(--text-secondary-rgb) / <alpha-value>)',
+        'text-tertiary': 'rgb(var(--text-tertiary-rgb) / <alpha-value>)',
+
         'accent': '#3b82f6',
         'accent-hover': '#2563eb',
         'accent-subtle': 'rgba(59, 130, 246, 0.1)',
-        
-        // Bulles de chat
+
         'bubble-user': '#3b82f6',
-        'bubble-assistant': '#2a2a2a',
-        
-        // Status
+        'bubble-assistant': 'rgb(var(--bubble-assistant-rgb) / <alpha-value>)',
+
         'success': '#22c55e',
         'error': '#ef4444',
         'warning': '#f59e0b',

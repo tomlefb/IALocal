@@ -1,7 +1,8 @@
-import { Menu, Settings, Shield } from 'lucide-react';
+import { Menu, Settings, Sun, Moon } from 'lucide-react';
 import { useChatStore } from '@/stores/chatStore';
 import { useConnectionStore } from '@/stores/connectionStore';
-import { IconButton, Badge } from '@/components/ui';
+import { useSettingsStore } from '@/stores/settingsStore';
+import { IconButton } from '@/components/ui';
 import { cn, DEFAULT_MODEL } from '@/utils';
 
 export interface HeaderProps {
@@ -12,11 +13,17 @@ export interface HeaderProps {
 export function Header({ onOpenSettings, onToggleSidebar }: HeaderProps) {
   const activeConversation = useChatStore((state) => state.getActiveConversation());
   const { isConnected } = useConnectionStore();
+  const { theme, updateSettings } = useSettingsStore();
 
   const title = activeConversation?.title || 'Nouvelle conversation';
 
   // Nom court du modèle pour l'affichage
   const modelDisplayName = DEFAULT_MODEL.split(':')[0];
+
+  // Toggle theme
+  const toggleTheme = () => {
+    updateSettings({ theme: theme === 'dark' ? 'light' : 'dark' });
+  };
 
   return (
     <header
@@ -42,12 +49,12 @@ export function Header({ onOpenSettings, onToggleSidebar }: HeaderProps) {
         </h1>
       </div>
 
-      {/* Droite : Modèle, Badge, Connexion, Settings */}
+      {/* Droite : Modèle, Connexion, Theme, Settings */}
       <div className="flex items-center gap-2 md:gap-3 flex-shrink-0">
         {/* Nom du modèle */}
         <div
           className={cn(
-            'px-2 py-1.5 rounded-lg',
+            'hidden sm:block px-2 py-1.5 rounded-lg',
             'bg-surface border border-border-subtle',
             'text-sm text-text-secondary',
             'max-w-[140px] md:max-w-[200px]'
@@ -57,11 +64,6 @@ export function Header({ onOpenSettings, onToggleSidebar }: HeaderProps) {
           <span className="truncate block">{modelDisplayName}</span>
         </div>
 
-        {/* Badge 100% Local */}
-        <Badge variant="success" icon={Shield} className="hidden sm:inline-flex">
-          100% Local
-        </Badge>
-
         {/* Indicateur de connexion */}
         <div
           className={cn(
@@ -70,6 +72,13 @@ export function Header({ onOpenSettings, onToggleSidebar }: HeaderProps) {
             isConnected ? 'bg-success' : 'bg-error'
           )}
           title={isConnected ? 'Connecté à Ollama' : 'Non connecté'}
+        />
+
+        {/* Toggle theme */}
+        <IconButton
+          icon={theme === 'dark' ? Sun : Moon}
+          onClick={toggleTheme}
+          tooltip={theme === 'dark' ? 'Mode clair' : 'Mode sombre'}
         />
 
         {/* Bouton paramètres */}

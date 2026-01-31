@@ -32,7 +32,7 @@ export function Sidebar({ onClose, onNewChat }: SidebarProps) {
           <div className="p-1.5 rounded-lg bg-accent/10">
             <Bot className="h-5 w-5 text-accent" />
           </div>
-          <span className="font-semibold text-text-primary">IA Locale</span>
+          <span className="font-semibold text-text-primary">IA Privée</span>
         </div>
 
         {/* Bouton fermer (mobile only) */}
@@ -68,7 +68,7 @@ export function Sidebar({ onClose, onNewChat }: SidebarProps) {
           'text-xs text-text-tertiary text-center'
         )}
       >
-        v1.0.0 — 100% local
+        v1.0.0
       </div>
     </div>
   );

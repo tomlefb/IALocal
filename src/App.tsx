@@ -14,12 +14,11 @@ import { cn } from '@/utils';
 
 function App() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [sidebarKey, setSidebarKey] = useState(0);
 
   // Stores
   const { setActiveConversation, getActiveConversation } = useChatStore();
   const { isConnected, isChecking, error, checkConnection } = useConnectionStore();
-  const { userName, ollamaUrl } = useSettingsStore();
+  const { userName, ollamaUrl, theme } = useSettingsStore();
 
   // Hook de chat
   const { sendMessage, stopGeneration, regenerateLastResponse, isGenerating } = useChat();
@@ -33,13 +32,21 @@ function App() {
     checkConnection();
   }, [checkConnection]);
 
+  // Applique le thème au document
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+      root.classList.remove('light');
+    } else {
+      root.classList.add('light');
+      root.classList.remove('dark');
+    }
+  }, [theme]);
+
   // Handlers
   const handleOpenSettings = () => {
     setIsSettingsOpen(true);
-  };
-
-  const handleCloseSidebar = () => {
-    setSidebarKey((prev) => prev + 1);
   };
 
   const handleNewChat = () => {
@@ -176,8 +183,7 @@ function App() {
       <Layout
         sidebar={
           <Sidebar
-            key={sidebarKey}
-            onClose={handleCloseSidebar}
+            onClose={() => {}}
             onNewChat={handleNewChat}
           />
         }

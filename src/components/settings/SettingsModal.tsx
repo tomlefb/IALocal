@@ -80,7 +80,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                 type="text"
                 value={ollamaUrl}
                 onChange={(e) => updateSettings({ ollamaUrl: e.target.value })}
-                className="input flex-1"
+                className="input flex-1 min-w-0"
                 placeholder="http://localhost:11434"
               />
               <Button
@@ -88,7 +88,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                 size="sm"
                 onClick={handleTestConnection}
                 disabled={connectionTestStatus === 'testing'}
-                className="whitespace-nowrap"
+                className="flex-shrink-0 px-3"
               >
                 {connectionTestStatus === 'testing' && (
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -99,10 +99,10 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                 {connectionTestStatus === 'error' && (
                   <XCircle className="h-4 w-4 text-error" />
                 )}
-                {connectionTestStatus === 'idle' && 'Tester'}
-                {connectionTestStatus === 'testing' && 'Test...'}
+                {connectionTestStatus === 'idle' && 'Test'}
+                {connectionTestStatus === 'testing' && '...'}
                 {connectionTestStatus === 'success' && 'OK'}
-                {connectionTestStatus === 'error' && 'Erreur'}
+                {connectionTestStatus === 'error' && 'Err'}
               </Button>
             </div>
           </div>
