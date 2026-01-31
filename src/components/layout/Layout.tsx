@@ -28,7 +28,7 @@ export function Layout({ children, sidebar, onOpenSettings }: LayoutProps) {
     : sidebar;
 
   return (
-    <div className="h-screen flex overflow-hidden bg-bg-primary">
+    <div className="h-screen-safe flex overflow-hidden bg-bg-primary">
       {/* Sidebar - Desktop */}
       <aside
         className={cn(

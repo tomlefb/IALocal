@@ -37,7 +37,7 @@ export function LoginScreen() {
   );
 
   return (
-    <div className="min-h-screen bg-bg-primary flex flex-col items-center justify-center p-4">
+    <div className="h-screen-safe bg-bg-primary flex flex-col items-center justify-center p-4">
       {/* Card de login */}
       <div
         className={cn(

@@ -23,20 +23,20 @@ export function WelcomeScreen({
   onSuggestionClick,
 }: WelcomeScreenProps) {
   return (
-    <div className="flex-1 flex flex-col items-center justify-center px-4 py-8">
-      <div className="max-w-2xl w-full text-center space-y-8">
+    <div className="flex-1 flex flex-col items-center justify-center px-4 py-4 sm:py-8 overflow-y-auto">
+      <div className="max-w-2xl w-full text-center space-y-6 sm:space-y-8">
         {/* Message de bienvenue */}
         <div className="space-y-2">
-          <h1 className="text-3xl font-semibold text-text-primary">
+          <h1 className="text-2xl sm:text-3xl font-semibold text-text-primary">
             Salut {userName} !
           </h1>
-          <p className="text-lg text-text-secondary">
+          <p className="text-base sm:text-lg text-text-secondary">
             Comment je peux t'aider ?
           </p>
         </div>
 
-        {/* Grille de suggestions */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {/* Grille de suggestions - masquée sur mobile */}
+        <div className="hidden sm:grid grid-cols-2 gap-3">
           {PROMPT_SUGGESTIONS.map((suggestion, index) => {
             const Icon = suggestionIcons[index] || Lightbulb;
             return (

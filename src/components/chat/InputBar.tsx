@@ -133,7 +133,7 @@ export function InputBar({
           )}
         </div>
 
-        <p className="text-xs text-text-tertiary mt-2 text-center">
+        <p className="hidden sm:block text-xs text-text-tertiary mt-2 text-center">
           Ctrl+Enter pour envoyer
         </p>
       </div>

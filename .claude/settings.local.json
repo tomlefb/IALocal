@@ -7,7 +7,11 @@
       "mcp__puppeteer__puppeteer_click",
       "mcp__puppeteer__puppeteer_fill",
       "mcp__puppeteer__puppeteer_evaluate",
-      "Bash(timeout:*)"
+      "Bash(timeout:*)",
+      "Bash(netstat:*)",
+      "Bash(taskkill:*)",
+      "Bash(cmd //c \"taskkill /F /PID 11092\")",
+      "Bash(cmd //c \"set OLLAMA_ORIGINS=* && set OLLAMA_HOST=0.0.0.0:11434 && ollama serve\")"
     ]
   }
 }
