@@ -78,7 +78,7 @@ export function InputBar({
       <div className="max-w-3xl mx-auto p-4">
         <div
           className={cn(
-            'flex items-end gap-3 p-3 rounded-xl',
+            'flex items-center gap-3 p-3 rounded-xl',
             'glass border border-border-subtle',
             'focus-within:border-accent focus-within:ring-1 focus-within:ring-accent',
             'transition-colors duration-200'
@@ -93,12 +93,13 @@ export function InputBar({
             disabled={disabled}
             rows={1}
             className={cn(
-              'flex-1 bg-transparent resize-none',
+              'flex-1 w-full bg-transparent resize-none',
               'text-text-primary placeholder:text-text-tertiary',
               'focus:outline-none',
-              'disabled:opacity-50 disabled:cursor-not-allowed'
+              'disabled:opacity-50 disabled:cursor-not-allowed',
+              'leading-6 py-0.5'
             )}
-            style={{ maxHeight: INPUT_MAX_HEIGHT }}
+            style={{ maxHeight: INPUT_MAX_HEIGHT, minHeight: '28px' }}
           />
 
           {isGenerating ? (

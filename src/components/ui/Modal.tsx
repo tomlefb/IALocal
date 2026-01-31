@@ -35,8 +35,11 @@ export function Modal({
 
   useEffect(() => {
     if (isOpen) {
-      previousActiveElement.current = document.activeElement as HTMLElement;
-      modalRef.current?.focus();
+      // Ne capturer l'élément précédent et focus que si on vient d'ouvrir
+      if (!previousActiveElement.current) {
+        previousActiveElement.current = document.activeElement as HTMLElement;
+        modalRef.current?.focus();
+      }
 
       const handleKeyDown = (e: globalThis.KeyboardEvent) => {
         if (e.key === 'Escape') {
@@ -68,6 +71,7 @@ export function Modal({
         document.removeEventListener('keydown', handleKeyDown);
         document.body.style.overflow = '';
         previousActiveElement.current?.focus();
+        previousActiveElement.current = null;
       };
     }
   }, [isOpen, onClose]);

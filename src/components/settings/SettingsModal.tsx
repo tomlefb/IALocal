@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Download, Trash2, CheckCircle, XCircle, Loader2 } from 'lucide-react';
-import { Modal, Button, Toggle, Slider } from '@/components/ui';
+import { Modal, Button, Toggle } from '@/components/ui';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { useConnectionStore } from '@/stores/connectionStore';
 import { useChatStore } from '@/stores/chatStore';
@@ -21,7 +21,6 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const {
     ollamaUrl,
     defaultModel,
-    temperature,
     systemPrompt,
     userName,
     sendOnEnter,
@@ -74,7 +73,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Paramètres" size="md">
-      <div className="space-y-6 max-h-[70vh] overflow-y-auto pr-2 -mr-2">
+      <div className="space-y-6 max-h-[70vh] overflow-y-auto px-1 -mx-1">
         {/* Section Connexion */}
         <section className="space-y-3">
           <h3 className="text-xs font-semibold uppercase tracking-wider text-text-tertiary">
@@ -148,24 +147,6 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                 ))
               )}
             </select>
-          </div>
-
-          {/* Température */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <label className="text-sm text-text-secondary">Température</label>
-              <span className="text-sm font-mono text-accent">{temperature.toFixed(1)}</span>
-            </div>
-            <Slider
-              value={temperature}
-              onChange={(value) => updateSettings({ temperature: value })}
-              min={0}
-              max={1}
-              step={0.1}
-            />
-            <p className="text-xs text-text-tertiary">
-              Basse = réponses précises, Haute = réponses créatives
-            </p>
           </div>
 
           {/* System Prompt */}
