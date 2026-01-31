@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Download, Trash2, CheckCircle, XCircle, Loader2 } from 'lucide-react';
-import { Modal, Button, Toggle } from '@/components/ui';
+import { Modal, Button } from '@/components/ui';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { useConnectionStore } from '@/stores/connectionStore';
 import { useChatStore } from '@/stores/chatStore';
-import { cn, ALLOWED_MODELS, STORAGE_KEYS } from '@/utils';
+import { cn, STORAGE_KEYS } from '@/utils';
 
 export interface SettingsModalProps {
   isOpen: boolean;
@@ -20,20 +20,13 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   // Stores
   const {
     ollamaUrl,
-    defaultModel,
     systemPrompt,
     userName,
-    sendOnEnter,
     updateSettings,
   } = useSettingsStore();
 
-  const { availableModels, checkConnection } = useConnectionStore();
+  const { checkConnection } = useConnectionStore();
   const { conversations, clearAllConversations } = useChatStore();
-
-  // Filtrer les modèles autorisés
-  const filteredModels = availableModels.filter((model) =>
-    ALLOWED_MODELS.includes(model.name as typeof ALLOWED_MODELS[number])
-  );
 
   // Test de connexion
   const handleTestConnection = async () => {
@@ -121,34 +114,6 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             Modèle
           </h3>
 
-          {/* Sélection du modèle */}
-          <div className="space-y-2">
-            <label className="text-sm text-text-secondary">Modèle par défaut</label>
-            <select
-              value={defaultModel}
-              onChange={(e) => updateSettings({ defaultModel: e.target.value })}
-              className={cn(
-                'w-full px-3 py-2 rounded-lg',
-                'bg-bg-tertiary border border-border-subtle',
-                'text-text-primary text-sm',
-                'focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent',
-                'transition-colors duration-200'
-              )}
-            >
-              {filteredModels.length === 0 ? (
-                <option value="" disabled>
-                  Aucun modèle disponible
-                </option>
-              ) : (
-                filteredModels.map((model) => (
-                  <option key={model.name} value={model.name}>
-                    {model.name}
-                  </option>
-                ))
-              )}
-            </select>
-          </div>
-
           {/* System Prompt */}
           <div className="space-y-2">
             <label className="text-sm text-text-secondary">System prompt</label>
@@ -180,19 +145,6 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             />
           </div>
 
-          {/* Toggle Envoyer avec Enter */}
-          <div className="flex items-center justify-between">
-            <div className="space-y-0.5">
-              <p className="text-sm text-text-secondary">Envoyer avec Enter</p>
-              <p className="text-xs text-text-tertiary">
-                {sendOnEnter ? 'Enter envoie, Shift+Enter = nouvelle ligne' : 'Ctrl+Enter pour envoyer'}
-              </p>
-            </div>
-            <Toggle
-              checked={sendOnEnter}
-              onChange={(checked) => updateSettings({ sendOnEnter: checked })}
-            />
-          </div>
         </section>
 
         {/* Section Données */}

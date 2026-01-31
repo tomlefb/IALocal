@@ -1,10 +1,8 @@
-import { Menu, Settings, Check, ChevronDown, Shield } from 'lucide-react';
+import { Menu, Settings, Shield } from 'lucide-react';
 import { useChatStore } from '@/stores/chatStore';
 import { useConnectionStore } from '@/stores/connectionStore';
-import { useSettingsStore } from '@/stores/settingsStore';
-import { IconButton, Badge, Dropdown } from '@/components/ui';
-import type { DropdownItem } from '@/components/ui';
-import { cn, ALLOWED_MODELS } from '@/utils';
+import { IconButton, Badge } from '@/components/ui';
+import { cn, DEFAULT_MODEL } from '@/utils';
 
 export interface HeaderProps {
   onOpenSettings: () => void;
@@ -13,31 +11,12 @@ export interface HeaderProps {
 
 export function Header({ onOpenSettings, onToggleSidebar }: HeaderProps) {
   const activeConversation = useChatStore((state) => state.getActiveConversation());
-  const { isConnected, availableModels } = useConnectionStore();
-  const { defaultModel, updateSettings } = useSettingsStore();
+  const { isConnected } = useConnectionStore();
 
   const title = activeConversation?.title || 'Nouvelle conversation';
 
-  // Filtrer les modèles autorisés
-  const filteredModels = availableModels.filter((model) =>
-    ALLOWED_MODELS.includes(model.name as typeof ALLOWED_MODELS[number])
-  );
-
-  // Dropdown items pour les modèles
-  const modelItems: DropdownItem[] = filteredModels.map((model) => ({
-    label: model.name,
-    onClick: () => updateSettings({ defaultModel: model.name }),
-    icon: model.name === defaultModel ? Check : undefined,
-  }));
-
-  // Si aucun modèle disponible
-  if (modelItems.length === 0) {
-    modelItems.push({
-      label: 'Aucun modèle',
-      onClick: () => {},
-      disabled: true,
-    });
-  }
+  // Nom court du modèle pour l'affichage
+  const modelDisplayName = DEFAULT_MODEL.split(':')[0];
 
   return (
     <header
@@ -65,28 +44,18 @@ export function Header({ onOpenSettings, onToggleSidebar }: HeaderProps) {
 
       {/* Droite : Modèle, Badge, Connexion, Settings */}
       <div className="flex items-center gap-2 md:gap-3 flex-shrink-0">
-        {/* Sélecteur de modèle */}
-        <Dropdown
-          trigger={
-            <div
-              className={cn(
-                'flex items-center gap-1.5 px-2 py-1.5 rounded-lg',
-                'bg-surface hover:bg-surface-hover',
-                'border border-border-subtle',
-                'text-sm text-text-secondary hover:text-text-primary',
-                'transition-colors duration-200',
-                'max-w-[120px] md:max-w-[180px]'
-              )}
-            >
-              <span className="truncate">
-                {defaultModel || 'Modèle'}
-              </span>
-              <ChevronDown className="h-4 w-4 flex-shrink-0" />
-            </div>
-          }
-          items={modelItems}
-          align="right"
-        />
+        {/* Nom du modèle */}
+        <div
+          className={cn(
+            'px-2 py-1.5 rounded-lg',
+            'bg-surface border border-border-subtle',
+            'text-sm text-text-secondary',
+            'max-w-[140px] md:max-w-[200px]'
+          )}
+          title={DEFAULT_MODEL}
+        >
+          <span className="truncate block">{modelDisplayName}</span>
+        </div>
 
         {/* Badge 100% Local */}
         <Badge variant="success" icon={Shield} className="hidden sm:inline-flex">

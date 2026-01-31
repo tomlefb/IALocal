@@ -32,18 +32,22 @@ export function Modal({
 }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const previousActiveElement = useRef<HTMLElement | null>(null);
+  const onCloseRef = useRef(onClose);
+
+  // Garder onCloseRef à jour sans déclencher l'effet
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  });
 
   useEffect(() => {
     if (isOpen) {
-      // Ne capturer l'élément précédent et focus que si on vient d'ouvrir
-      if (!previousActiveElement.current) {
-        previousActiveElement.current = document.activeElement as HTMLElement;
-        modalRef.current?.focus();
-      }
+      // Focus initial sur la modal seulement à l'ouverture
+      previousActiveElement.current = document.activeElement as HTMLElement;
+      modalRef.current?.focus();
 
       const handleKeyDown = (e: globalThis.KeyboardEvent) => {
         if (e.key === 'Escape') {
-          onClose();
+          onCloseRef.current();
         }
 
         // Focus trap
@@ -71,10 +75,9 @@ export function Modal({
         document.removeEventListener('keydown', handleKeyDown);
         document.body.style.overflow = '';
         previousActiveElement.current?.focus();
-        previousActiveElement.current = null;
       };
     }
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   const handleOverlayClick = (e: MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
