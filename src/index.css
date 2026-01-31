@@ -121,6 +121,10 @@
   .badge-warning {
     @apply badge bg-warning/10 text-warning;
   }
+
+  .badge-info {
+    @apply badge bg-accent/10 text-accent;
+  }
 }
 
 /* Styles pour le syntax highlighting (highlight.js) */

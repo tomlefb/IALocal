@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(del \"C:\\\\Users\\\\tomle\\\\Desktop\\\\ia-locale\\\\src\\\\components\\\\ui\\\\.gitkeep\")"
+    ]
+  }
+}
