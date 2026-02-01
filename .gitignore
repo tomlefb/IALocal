@@ -38,3 +38,7 @@ coverage/
 
 # Data (conversations stockées côté serveur)
 data/*.json
+
+# Claude Code
+.claude/
+CLAUDE.md
