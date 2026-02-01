@@ -35,3 +35,6 @@ Thumbs.db
 
 # Testing
 coverage/
+
+# Data (conversations stockées côté serveur)
+data/*.json
